@@ -1,0 +1,27 @@
+# Dependências
+node_modules/
+site/node_modules/
+
+# Build / cache do Next.js
+site/.next/
+site/out/
+site/.turbo/
+
+# Vercel
+.vercel/
+site/.vercel/
+
+# Variáveis de ambiente
+.env
+.env.*
+!.env.example
+site/.env
+site/.env.*
+
+# Logs
+*.log
+npm-debug.log*
+
+# Sistema operacional
+.DS_Store
+Thumbs.db

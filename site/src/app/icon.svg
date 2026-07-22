@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="64" y2="64">
+      <stop offset="0%" stop-color="#e3bf63"/>
+      <stop offset="100%" stop-color="#c99422"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="#0a1633"/>
+  <!-- óculos browline (referência: logo oficial) -->
+  <path d="M8 26 h48 v5 h-3 v-2 h-17 v2 h-8 v-2 H11 v2 H8 z" fill="url(#g)"/>
+  <path d="M11 31 v3 a9 9 0 0 0 9 9 a9 9 0 0 0 9-9 v-3 h-4 v3 a5 5 0 0 1-5 5 a5 5 0 0 1-5-5 v-3 z" fill="url(#g)"/>
+  <path d="M35 31 v3 a9 9 0 0 0 9 9 a9 9 0 0 0 9-9 v-3 h-4 v3 a5 5 0 0 1-5 5 a5 5 0 0 1-5-5 v-3 z" fill="url(#g)"/>
+</svg>
