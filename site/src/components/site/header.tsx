@@ -40,7 +40,7 @@ export function SiteHeader() {
               href={item.href}
               className={cn(
                 "rounded-md px-3 py-2 text-sm font-medium outline-none transition-colors focus-visible:ring-2 focus-visible:ring-gold-500 focus-visible:ring-offset-2",
-                pathname === item.href
+                pathname === item.href || pathname.startsWith(`${item.href}/`)
                   ? "text-navy-950"
                   : "text-muted-foreground hover:text-navy-950",
               )}

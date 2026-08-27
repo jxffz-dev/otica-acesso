@@ -20,8 +20,8 @@ export function ExamScheduler() {
     : "";
 
   return (
-    <div className="rounded-2xl border border-border bg-card p-6 sm:p-8">
-      <p className="text-sm font-semibold uppercase tracking-wider text-gold-600">
+    <div data-hide-fab className="rounded-2xl border border-border bg-card p-6 sm:p-8">
+      <p className="text-sm font-semibold uppercase tracking-wider text-gold-700">
         Agendamento rápido
       </p>
 
@@ -70,25 +70,39 @@ export function ExamScheduler() {
       </div>
 
       <div className="mt-8">
-        <Button
-          asChild={!!ready}
-          disabled={!ready}
-          size="lg"
-          className="w-full bg-gold-500 text-navy-950 hover:bg-gold-400 sm:w-auto"
-        >
-          {ready ? (
-            <a href={whatsappLink(message)} target="_blank" rel="noopener">
+        <div className="relative w-full sm:inline-block sm:w-auto">
+          <Button
+            aria-disabled="true"
+            tabIndex={-1}
+            size="lg"
+            aria-hidden={!!ready}
+            className={cn(
+              "pointer-events-none w-full bg-gold-500 text-navy-950 transition-opacity duration-[160ms] ease-out sm:w-auto",
+              ready ? "absolute inset-0 opacity-0" : "opacity-60",
+            )}
+          >
+            Escolha a loja e o turno
+          </Button>
+          <Button
+            asChild
+            size="lg"
+            aria-hidden={!ready}
+            className={cn(
+              "w-full bg-gold-500 text-navy-950 transition-opacity duration-[160ms] ease-out hover:bg-gold-400 sm:w-auto",
+              ready ? "opacity-100" : "pointer-events-none absolute inset-0 opacity-0",
+            )}
+          >
+            <a href={ready ? whatsappLink(message) : undefined} target="_blank" rel="noopener">
               <MessageCircle className="size-4" />
               Confirmar pelo WhatsApp
               <ArrowRight className="size-4" />
             </a>
-          ) : (
-            <span>Escolha a loja e o turno</span>
-          )}
-        </Button>
+          </Button>
+        </div>
         <p className="mt-3 text-xs text-muted-foreground">
-          Você será direcionado ao nosso WhatsApp com a mensagem pronta — nossa
-          equipe confirma o horário exato com você.
+          Você será direcionado ao nosso WhatsApp com a mensagem pronta —
+          normalmente respondemos em poucos minutos e confirmamos o horário
+          exato com você.
         </p>
       </div>
     </div>

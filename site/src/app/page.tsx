@@ -55,7 +55,7 @@ function Hero() {
             <Button
               asChild
               size="lg"
-              className="bg-gold-500 text-navy-950 shadow-lg shadow-gold-500/20 transition-all hover:bg-gold-400 hover:shadow-gold-400/30 active:scale-[0.97]"
+              className="bg-gold-500 text-navy-950 shadow-lg shadow-gold-500/20 transition-all hover:bg-gold-400 hover:shadow-gold-400/30"
             >
               <Link href="/exame-de-vista">
                 Agendar exame gratuito
@@ -66,7 +66,7 @@ function Hero() {
               asChild
               size="lg"
               variant="outline"
-              className="border-navy-400 bg-transparent text-white hover:bg-navy-900 hover:text-white active:scale-[0.97]"
+              className="border-navy-400 bg-transparent text-white hover:bg-navy-900 hover:text-white"
             >
               <Link href="/oculos-de-grau">Ver coleção</Link>
             </Button>
@@ -125,17 +125,15 @@ function TrustBar() {
   return (
     <section className="border-b border-border bg-secondary">
       <div className="mx-auto grid max-w-7xl grid-cols-2 gap-6 px-4 py-8 sm:px-6 lg:grid-cols-4 lg:px-8">
-        {trustItems.map((item, i) => (
-          <FadeIn key={item.text} staggerIndex={i}>
-            <div className="flex items-center gap-3">
-              <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-accent">
-                <item.icon className="size-5 text-gold-700" />
-              </div>
-              <span className="text-sm font-medium text-navy-900">
-                {item.text}
-              </span>
+        {trustItems.map((item) => (
+          <div key={item.text} className="flex items-center gap-3">
+            <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-accent">
+              <item.icon className="size-5 text-gold-700" />
             </div>
-          </FadeIn>
+            <span className="text-sm font-medium text-navy-900">
+              {item.text}
+            </span>
+          </div>
         ))}
       </div>
     </section>
@@ -173,50 +171,47 @@ const categories = [
 function Categories() {
   return (
     <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
-      <FadeIn>
-        <h2 className="font-heading text-3xl font-semibold text-navy-950 sm:text-4xl">
-          O que você procura hoje?
-        </h2>
-        <p className="mt-3 max-w-2xl text-muted-foreground">
-          Do exame à entrega, cuidamos de cada detalhe da sua visão.
-        </p>
-      </FadeIn>
+      <h2 className="font-heading text-3xl font-semibold text-navy-950 sm:text-4xl">
+        O que você procura hoje?
+      </h2>
+      <p className="mt-3 max-w-2xl text-muted-foreground">
+        Do exame à entrega, cuidamos de cada detalhe da sua visão.
+      </p>
       <div className="mt-10 grid gap-6 md:grid-cols-3">
-        {categories.map((category, i) => (
-          <FadeIn key={category.href} staggerIndex={i}>
-            <Link
-              href={category.href}
-              className="group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card outline-none transition-all duration-300 hover:-translate-y-1.5 hover:border-gold-300 hover:shadow-xl hover:shadow-navy-950/10 focus-visible:ring-2 focus-visible:ring-gold-500 focus-visible:ring-offset-2 active:scale-[0.98]"
-            >
-              {/* Fotos reais de categoria (A2) */}
-              <div className="relative h-48 overflow-hidden">
-                <Image
-                  src={category.image}
-                  alt={category.imageAlt}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 33vw"
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-                {/* Overlay gradiente para garantir legibilidade */}
-                <div
-                  aria-hidden
-                  className="pointer-events-none absolute inset-0 bg-gradient-to-t from-navy-950/30 to-transparent"
-                />
-              </div>
-              <div className="flex flex-1 flex-col p-7">
-                <h3 className="font-heading text-xl font-semibold text-navy-950">
-                  {category.title}
-                </h3>
-                <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">
-                  {category.description}
-                </p>
-                <span className="mt-5 inline-flex items-center gap-1 text-sm font-medium text-gold-700">
-                  Explorar
-                  <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
-                </span>
-              </div>
-            </Link>
-          </FadeIn>
+        {categories.map((category) => (
+          <Link
+            key={category.href}
+            href={category.href}
+            className="group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card outline-none transition-all duration-300 hover:-translate-y-1.5 hover:border-gold-300 hover:shadow-xl hover:shadow-navy-950/10 focus-visible:ring-2 focus-visible:ring-gold-500 focus-visible:ring-offset-2 active:scale-[0.98]"
+          >
+            {/* Fotos reais de categoria (A2) */}
+            <div className="relative h-48 overflow-hidden">
+              <Image
+                src={category.image}
+                alt={category.imageAlt}
+                fill
+                sizes="(max-width: 768px) 100vw, 33vw"
+                className="object-cover transition-transform duration-500 group-hover:scale-105"
+              />
+              {/* Overlay gradiente para garantir legibilidade */}
+              <div
+                aria-hidden
+                className="pointer-events-none absolute inset-0 bg-gradient-to-t from-navy-950/30 to-transparent"
+              />
+            </div>
+            <div className="flex flex-1 flex-col p-7">
+              <h3 className="font-heading text-xl font-semibold text-navy-950">
+                {category.title}
+              </h3>
+              <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">
+                {category.description}
+              </p>
+              <span className="mt-5 inline-flex items-center gap-1 text-sm font-medium text-gold-700">
+                Explorar
+                <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
+              </span>
+            </div>
+          </Link>
         ))}
       </div>
     </section>
@@ -232,90 +227,53 @@ function Categories() {
  * ────────────────────────────────────────────────────────────────────────── */
 
 const styleTiles = [
-  {
-    name: "Aviador",
-    caption: "Clássico atemporal",
-    image: "/images/category-sol.jpg",
-    imageAlt: "Óculos no estilo aviador",
-  },
-  {
-    name: "Redondo",
-    caption: "Ar retrô e moderno",
-    image: "/images/category-grau.jpg",
-    imageAlt: "Óculos de armação redonda",
-  },
-  {
-    name: "Gatinho",
-    caption: "Elegância marcante",
-    image: "/images/hero-lifestyle.jpg",
-    imageAlt: "Óculos no estilo gatinho",
-  },
-  {
-    name: "Esportivo",
-    caption: "Leveza e resistência",
-    image: "/images/category-grau.jpg",
-    imageAlt: "Óculos esportivo",
-  },
+  { name: "Aviador", caption: "Clássico atemporal" },
+  { name: "Redondo", caption: "Ar retrô e moderno" },
+  { name: "Gatinho", caption: "Elegância marcante" },
+  { name: "Esportivo", caption: "Leveza e resistência" },
 ];
 
 function StylesShowcase() {
   return (
     <section className="border-y border-border bg-secondary">
       <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
-        <FadeIn>
-          <div className="flex items-end justify-between gap-4">
-            <div>
-              <h2 className="font-heading text-3xl font-semibold text-navy-950 sm:text-4xl">
-                Modelos para todo estilo
-              </h2>
-              <p className="mt-3 max-w-2xl text-muted-foreground">
-                Do clássico ao moderno — encontre a armação com a sua cara.
-                Consulte modelos e valores no WhatsApp.
-              </p>
-            </div>
-            <Button asChild variant="outline" className="hidden sm:inline-flex">
-              <Link href="/oculos-de-grau">
-                Ver categorias
-                <ArrowRight className="size-4" />
-              </Link>
-            </Button>
+        <div className="flex items-end justify-between gap-4">
+          <div>
+            <h2 className="font-heading text-3xl font-semibold text-navy-950 sm:text-4xl">
+              Modelos para todo estilo
+            </h2>
+            <p className="mt-3 max-w-2xl text-muted-foreground">
+              Do clássico ao moderno — encontre a armação com a sua cara.
+              Consulte modelos e valores no WhatsApp.
+            </p>
           </div>
-        </FadeIn>
+          <Button asChild variant="outline" className="hidden sm:inline-flex">
+            <Link href="/oculos-de-grau">
+              Ver categorias
+              <ArrowRight className="size-4" />
+            </Link>
+          </Button>
+        </div>
 
-        <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {styleTiles.map((tile, i) => (
-            <FadeIn key={tile.name} staggerIndex={i}>
-              <a
-                href={whatsappLink(
-                  `Olá! Vi o estilo "${tile.name}" no site e quero ver os modelos disponíveis.`,
-                )}
-                target="_blank"
-                rel="noopener"
-                className="group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card outline-none transition-all duration-300 hover:-translate-y-1 hover:border-gold-300 hover:shadow-lg focus-visible:ring-2 focus-visible:ring-gold-500 focus-visible:ring-offset-2 active:scale-[0.98]"
-              >
-                <div className="relative h-44 overflow-hidden bg-navy-950">
-                  <Image
-                    src={tile.image}
-                    alt={tile.imageAlt}
-                    fill
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                  />
-                </div>
-                <div className="flex flex-1 flex-col p-5">
-                  <h3 className="font-heading text-lg font-semibold text-navy-950">
-                    {tile.name}
-                  </h3>
-                  <p className="mt-1 flex-1 text-sm text-muted-foreground">
-                    {tile.caption}
-                  </p>
-                  <span className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-gold-700">
-                    <MessageCircle className="size-4" />
-                    Ver modelos
-                  </span>
-                </div>
-              </a>
-            </FadeIn>
+        <div className="mt-10 flex flex-wrap gap-3">
+          {styleTiles.map((tile) => (
+            <a
+              key={tile.name}
+              href={whatsappLink(
+                `Olá! Vi o estilo "${tile.name}" no site e quero ver os modelos disponíveis.`,
+              )}
+              target="_blank"
+              rel="noopener"
+              className="group flex items-center gap-2 rounded-full border border-border bg-card py-3 pl-5 pr-4 outline-none transition-all hover:border-gold-300 hover:shadow-md focus-visible:ring-2 focus-visible:ring-gold-500 focus-visible:ring-offset-2 active:scale-[0.98]"
+            >
+              <span className="text-sm font-semibold text-navy-950">
+                {tile.name}
+              </span>
+              <span className="text-sm text-muted-foreground">
+                · {tile.caption}
+              </span>
+              <MessageCircle className="size-4 text-gold-700 transition-transform group-hover:scale-110" />
+            </a>
           ))}
         </div>
       </div>
@@ -336,30 +294,28 @@ function SocialProof() {
   return (
     <section className="bg-white">
       <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
-        <FadeIn>
-          <div className="mx-auto max-w-2xl text-center">
-            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gold-600">
-              @oticaacesso
-            </p>
-            <h2 className="mt-3 font-heading text-3xl font-semibold text-navy-950 sm:text-4xl">
-              Acompanhe quem já enxerga melhor com a gente
-            </h2>
-            <p className="mt-4 text-muted-foreground">
-              No nosso Instagram você vê o dia a dia das lojas, clientes
-              experimentando os óculos e as novidades que chegam toda semana.
-            </p>
-            <Button
-              asChild
-              size="lg"
-              className="mt-8 bg-navy-950 text-white hover:bg-navy-800 active:scale-[0.97]"
-            >
-              <a href={site.instagram} target="_blank" rel="noopener">
-                Ver no Instagram
-                <ArrowRight className="size-4" />
-              </a>
-            </Button>
-          </div>
-        </FadeIn>
+        <div className="mx-auto max-w-2xl text-center">
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gold-700">
+            @oticaacesso
+          </p>
+          <h2 className="mt-3 font-heading text-3xl font-semibold text-navy-950 sm:text-4xl">
+            Acompanhe quem já enxerga melhor com a gente
+          </h2>
+          <p className="mt-4 text-muted-foreground">
+            No nosso Instagram você vê o dia a dia das lojas, clientes
+            experimentando os óculos e as novidades que chegam toda semana.
+          </p>
+          <Button
+            asChild
+            size="lg"
+            className="mt-8 bg-navy-950 text-white hover:bg-navy-800"
+          >
+            <a href={site.instagram} target="_blank" rel="noopener">
+              Ver no Instagram
+              <ArrowRight className="size-4" />
+            </a>
+          </Button>
+        </div>
       </div>
     </section>
   );
@@ -400,7 +356,7 @@ function ExamCta() {
             <Button
               asChild
               size="lg"
-              className="mt-8 bg-gold-500 text-navy-950 shadow-lg shadow-gold-500/20 hover:bg-gold-400 active:scale-[0.97]"
+              className="mt-8 bg-gold-500 text-navy-950 shadow-lg shadow-gold-500/20 hover:bg-gold-400"
             >
               <Link href="/exame-de-vista">
                 Agendar meu exame
@@ -422,53 +378,49 @@ function Stores() {
   return (
     <section className="border-t border-border bg-secondary">
       <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
-        <FadeIn>
-          <h2 className="font-heading text-3xl font-semibold text-navy-950 sm:text-4xl">
-            Perto de você
-          </h2>
-          <p className="mt-3 max-w-2xl text-muted-foreground">
-            Três lojas no coração do Ceará — e atendimento pelo WhatsApp para
-            todo o Brasil.
-          </p>
-        </FadeIn>
+        <h2 className="font-heading text-3xl font-semibold text-navy-950 sm:text-4xl">
+          Perto de você
+        </h2>
+        <p className="mt-3 max-w-2xl text-muted-foreground">
+          Três lojas no coração do Ceará — e atendimento pelo WhatsApp para
+          todo o Brasil.
+        </p>
         <div className="mt-10 grid gap-6 md:grid-cols-3">
-          {stores.map((store, i) => (
-            <FadeIn key={store.slug} staggerIndex={i}>
-              <div className="flex h-full flex-col rounded-2xl border border-border bg-card p-6 transition-all duration-300 hover:border-gold-300 hover:shadow-lg active:scale-[0.98]">
-                <p className="text-xs font-semibold uppercase tracking-wider text-gold-600">
-                  {store.label}
-                </p>
-                <h3 className="mt-1 font-heading text-xl font-semibold text-navy-950">
-                  {store.city} — {store.state}
-                </h3>
-                <p className="mt-1 flex-1 text-sm text-muted-foreground">
-                  {store.address}
-                </p>
-                <div className="mt-5 flex flex-col gap-2">
-                  <Button
-                    asChild
-                    className="w-full bg-navy-950 text-white hover:bg-navy-800 active:scale-[0.97]"
+          {stores.map((store) => (
+            <div key={store.slug} className="flex h-full flex-col rounded-2xl border border-border bg-card p-6 transition-all duration-300 hover:border-gold-300 hover:shadow-lg active:scale-[0.98]">
+              <p className="text-xs font-semibold uppercase tracking-wider text-gold-700">
+                {store.label}
+              </p>
+              <h3 className="mt-1 font-heading text-xl font-semibold text-navy-950">
+                {store.city} — {store.state}
+              </h3>
+              <p className="mt-1 flex-1 text-sm text-muted-foreground">
+                {store.address}
+              </p>
+              <div className="mt-5 flex flex-col gap-2">
+                <Button
+                  asChild
+                  className="w-full bg-navy-950 text-white hover:bg-navy-800"
+                >
+                  <Link href={`/lojas/${store.slug}`}>
+                    Conhecer a loja
+                    <ArrowRight className="size-4" />
+                  </Link>
+                </Button>
+                <Button asChild variant="outline" className="w-full">
+                  <a
+                    href={whatsappLink(
+                      `Olá! Vim pelo site e quero falar com a loja de ${store.city}.`,
+                    )}
+                    target="_blank"
+                    rel="noopener"
                   >
-                    <Link href={`/lojas/${store.slug}`}>
-                      Conhecer a loja
-                      <ArrowRight className="size-4" />
-                    </Link>
-                  </Button>
-                  <Button asChild variant="outline" className="w-full active:scale-[0.97]">
-                    <a
-                      href={whatsappLink(
-                        `Olá! Vim pelo site e quero falar com a loja de ${store.city}.`,
-                      )}
-                      target="_blank"
-                      rel="noopener"
-                    >
-                      <MessageCircle className="size-4" />
-                      Falar com esta loja
-                    </a>
-                  </Button>
-                </div>
+                    <MessageCircle className="size-4" />
+                    Falar com esta loja
+                  </a>
+                </Button>
               </div>
-            </FadeIn>
+            </div>
           ))}
         </div>
       </div>

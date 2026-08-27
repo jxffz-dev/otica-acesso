@@ -3,8 +3,8 @@
 > Documento vivo de decisões arquiteturais, de design e de negócio.
 > Nenhuma decisão importante é tomada sem registro aqui.
 
-**Última atualização:** 2026-07-18
-**Status:** Fases 0–2 concluídas ✅ · **Site publicado: https://otica-acesso.vercel.app** (Vercel, plano grátis) · **Fase atual: 2.5 — Polimento Profissional**, backlog priorizado em [docs/FASE-2.5-POLIMENTO.md](docs/FASE-2.5-POLIMENTO.md) · Depois: Fase 3 (Catálogo). Prioridade máxima da 2.5: Política de Privacidade (LGPD). Bloqueios do cliente: domínio, endereços Ipu/Reriutaba, depoimentos reais, fotos
+**Última atualização:** 2026-08-27
+**Status:** Fases 0–2 concluídas ✅ · **Site publicado: https://otica-acesso.vercel.app** (Vercel, plano grátis) · **Fase atual: 2.5 — Polimento Profissional**, backlog priorizado em [docs/FASE-2.5-POLIMENTO.md](docs/FASE-2.5-POLIMENTO.md) · Depois: Fase 3 (Catálogo). Prioridade máxima da 2.5: Política de Privacidade (LGPD) ✅ já no ar. Bloqueios do cliente: domínio, endereços Ipu/Reriutaba (Varjota resolvido — D-027), horário de funcionamento (P-005), depoimentos reais, fotos
 
 ---
 
@@ -52,10 +52,12 @@ Transformar a Ótica Acesso (3 lojas físicas no Ceará: Varjota, Ipu e Reriutab
 | D-021 | 2026-07-18 | Footer usa versão da logo com texto branco (public/images/logo-footer-clean.png). O PNG enviado tinha transparência FALSA (xadrez escuro desenhado como pixels pela IA); fundo removido via script Node+sharp (scratchpad/clean-logo.js: canal máximo < 60 → alpha 0, rampa de 40) | Texto navy sumiria no footer navy; a versão branca assenta direto no fundo, sem cartão. Lição: PNGs de IA "transparentes" precisam de verificação — xadrez desenhado ≠ canal alpha |
 | D-022 | 2026-07-18 | Logo do header também tinha xadrez claro falso (aparecia como caixa cinza) — limpa com o mesmo método invertido (canal mínimo > 220 → alpha 0); header usa public/images/logo-clean.png | Mesma causa da D-021. Os arquivos originais logo.png e logo-footer.png ficam no repositório como fonte |
 | D-023 | 2026-07-18 | **Site publicado na Vercel (plano Hobby/grátis)**: projeto jeff-works/otica-acesso, produção em https://otica-acesso.vercel.app. Deploy via CLI (login device flow, conta jxffz-dev) | Site 100% estático — plano grátis atende com folga. Próximo: registrar oticaacesso.com e apontar para o projeto (Settings → Domains). Deploys futuros: `npx vercel deploy --prod --yes` na pasta site/ |
+| D-026 | 2026-07-18 | **Código no GitHub** ✅: repo privado github.com/jxffz-dev/otica-acesso, branch main sincronizada (commit 393adee confirmado igual no local e no remoto). Repo criado pelo cliente; push concluído | Conector GitHub do ambiente é somente-leitura (não cria repos). O push passou com credencial já salva na máquina (Git Credential Manager). Próximo: ligar o repo à Vercel para deploy automático — §8.2 |
 | D-025 | 2026-07-18 | **Conteúdo fictício despublicado** (aprovado pelo cliente): removidos os depoimentos inventados (nomes/avaliações) e a vitrine "Favoritos da semana" com preços/modelos fictícios. Substituídos por uma seção de prova social honesta que aponta para o Instagram real | Risco de publicidade enganosa (CDC/CONAR) num negócio real; colidia com a estratégia de autenticidade. Depoimentos reais (P-010) e catálogo com preços verdadeiros (Fase 3) retornam quando o material existir. Imagens de IA no hero/categorias permanecem como placeholder — sinalizado ao cliente para decisão |
 | D-024 | 2026-07-18 | **Fase 2.5 em execução**: página /privacidade (LGPD, data dinâmica, botão voltar), /not-found (404 da marca), WhatsApp FAB (z-50, focus-visible), OG/Twitter metadata, @vercel/analytics (/next) no layout, foco por teclado em todos os interativos, hero+categorias+"Favoritos da semana" com imagens e stagger | Reusadas as convenções já existentes (/privacidade, whatsapp-fab) em vez das rotas genéricas do prompt (politica-de-privacidade, WhatsAppButton) para não duplicar. FAB mantém o glifo oficial do WhatsApp (mais reconhecível que MessageCircle genérico). Imagens são placeholders/IA até fotos reais. Pendências: B2 (otimizar PNGs da logo), depoimentos reais (P-010), Search Console (depende do domínio) |
 | D-008 | 2026-07-18 | **Domínio escolhido: oticaacesso.com** (cliente confirmou) | Global, limpo, disponível imediatamente; evita depender do .com.br já registrado por terceiro. Registro de marca no INPI segue recomendado em paralelo |
 | D-009 | 2026-07-18 | Relógios entram no site como categoria pequena/nova (não flagship) | Cliente confirmou que relógios (Atlantis) são novidade recente na própria loja física, não um catálogo consolidado — tratar como categoria emergente (ex.: dentro de "Acessórios", com selo "Novidade"), sem investir estrutura de e-commerce robusta nela na v1 |
+| D-027 | 2026-08-27 | **Endereço de Varjota corrigido pelo cliente: R. Modesto Mendonça, 620 — Varjota — CE, 62265-000** | Substitui o endereço de D-015 (R. Clóvis Ximenes, 616), que era só uma estimativa via pesquisa web (fonte Solutudo) e estava errado. Atualizado em `lib/site.ts` (endereço, link do Maps e o JSON-LD `Optician` da página da loja) |
 
 ## 4. Decisões Pendentes (bloqueiam fases)
 
@@ -104,3 +106,41 @@ Transformar a Ótica Acesso (3 lojas físicas no Ceará: Varjota, Ipu e Reriutab
 - R-002: Design premium com fotos amadoras destrói o posicionamento — dependência de produção de assets
 - R-003: CTA de WhatsApp sem SLA de resposta queima conversão
 - R-004: SEO nacional em "óculos de sol" é dominado por gigantes — estratégia deve priorizar cauda longa + SEO local primeiro
+
+## 8. Operação: GitHub + Deploy Automático (Vercel)
+
+**Estado atual:** repositório git local pronto (branch `main`, remote `origin` → `github.com/jxffz-dev/otica-acesso`). Falta o push inicial (manual — ver motivo na D-026).
+
+### 8.1 — Enviar o código para o GitHub (uma vez)
+
+1. Criar o repositório vazio em https://github.com/new
+   - Nome: `otica-acesso` · Visibilidade: **Private**
+   - **Não** inicializar com README/.gitignore/license (evita conflito no push)
+2. No terminal (PowerShell), na pasta do projeto:
+   ```
+   cd "C:\Users\Administrador\OneDrive\Desktop\Claude\otica-acesso"; git push -u origin main
+   ```
+   - Na 1ª vez, autorizar o login da conta **jxffz-dev** na janela do Git Credential Manager. Depois fica salvo.
+
+### 8.2 — Deploy automático a cada commit (ligar GitHub ↔ Vercel)
+
+Hoje o deploy é manual (`npx vercel deploy --prod --yes` dentro de `site/`). Para automatizar:
+
+1. Vercel → projeto **otica-acesso** → **Settings → Git**
+2. **Connect Git Repository** → escolher `jxffz-dev/otica-acesso`
+3. Definir o **Root Directory** como `site` (o app Next.js está em `site/`, não na raiz)
+4. Pronto: cada `git push` na branch `main` publica em produção automaticamente; branches/PRs geram previews.
+
+### 8.3 — Fluxo de trabalho depois de ligado
+
+```
+# fazer alterações → salvar histórico → publicar (automático)
+git add -A
+git commit -m "descrição da mudança"
+git push
+```
+
+### 8.4 — Pendências de operação relacionadas
+
+- Registrar `oticaacesso.com` e apontar na Vercel (Settings → Domains) — tira o site do endereço `.vercel.app`.
+- Conector GitHub do ambiente é somente-leitura: criação de repo e push seguem manuais até que haja `gh` CLI autenticado ou um token com escopo de escrita.

@@ -1,11 +1,13 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { whatsappLink } from "@/lib/site";
 
 export function WhatsAppFab() {
   const [visible, setVisible] = useState(false);
+  const [obscured, setObscured] = useState(false);
+  const reducedMotion = useReducedMotion();
 
   useEffect(() => {
     const onScroll = () => setVisible(window.scrollY > 200);
@@ -18,19 +20,32 @@ export function WhatsAppFab() {
     };
   }, []);
 
+  useEffect(() => {
+    // Some sections (e.g. the exam scheduler) already have their own
+    // prominent WhatsApp CTA — hide the FAB while one is on screen so it
+    // never sits on top of a button the visitor is trying to tap.
+    const targets = document.querySelectorAll("[data-hide-fab]");
+    if (targets.length === 0) return;
+    const observer = new IntersectionObserver(
+      (entries) => setObscured(entries.some((entry) => entry.isIntersecting)),
+    );
+    targets.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <AnimatePresence>
-      {visible && (
+      {visible && !obscured && (
         <motion.a
           href={whatsappLink("Olá! Vim pelo site da Ótica Acesso.")}
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Fale conosco pelo WhatsApp"
-          initial={{ opacity: 0, y: 20 }}
+          initial={reducedMotion ? false : { opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: 20 }}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.95 }}
+          exit={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 20 }}
+          whileHover={reducedMotion ? undefined : { scale: 1.1 }}
+          whileTap={reducedMotion ? undefined : { scale: 0.95 }}
           className="group fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg outline-none transition-shadow hover:shadow-xl focus-visible:ring-4 focus-visible:ring-[#25D366]/40 focus-visible:ring-offset-2"
         >
           <svg viewBox="0 0 24 24" fill="currentColor" className="size-7">

@@ -38,9 +38,9 @@ export const stores: Store[] = [
     city: "Varjota",
     state: "CE",
     label: "Loja 01",
-    address: "R. Clóvis Ximenes, 616 — Centro, Varjota — CE, 62265-000",
+    address: "R. Modesto Mendonça, 620 — Varjota — CE, 62265-000",
     addressConfirmed: true,
-    mapsUrl: mapsSearch("Ótica Acesso, R. Clóvis Ximenes 616, Varjota CE"),
+    mapsUrl: mapsSearch("Ótica Acesso, R. Modesto Mendonça 620, Varjota CE"),
   },
   {
     slug: "ipu",

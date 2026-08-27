@@ -14,7 +14,7 @@ export default function ContatoPage() {
   return (
     <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
       <FadeIn>
-        <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-gold-600">
+        <p className="mb-3 text-sm font-semibold uppercase tracking-[0.2em] text-gold-700">
           Contato
         </p>
         <h1 className="max-w-3xl font-heading text-4xl font-semibold leading-tight text-navy-950 sm:text-5xl">

@@ -41,7 +41,7 @@ export default function NotFound() {
               asChild
               size="lg"
               variant="outline"
-              className="h-12 border-gold-500 text-gold-600 hover:bg-gold-50 hover:text-gold-700"
+              className="h-12 border-gold-500 text-gold-700 hover:bg-gold-50 hover:text-gold-800"
             >
               <Link href={whatsappLink()} target="_blank" rel="noopener noreferrer">
                 <MessageCircle className="mr-2 h-4 w-4" />
