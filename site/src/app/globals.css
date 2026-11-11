@@ -35,7 +35,8 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-sans);
   --font-mono: var(--font-geist-mono);
-  --font-heading: var(--font-fraunces);
+  --font-heading: var(--font-jakarta);
+  --font-display: var(--font-lora);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -152,5 +153,149 @@
   }
   html {
     @apply font-sans;
+  }
+  /* Títulos: letras um pouco mais juntas (sans geométrica pede isso em corpo
+     grande) e quebra de linha equilibrada, sem palavra sozinha na última linha. */
+  .font-heading {
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+}
+/* ── Hero: parallax e chips flutuantes (CSS puro, sem JS) ─────────────────────
+ * Só transform (barato e fora do caminho do LCP). Sem suporte a
+ * animation-timeline ou com "reduzir movimento": a foto fica estática. */
+.hero-parallax {
+  transform: scale(1.1);
+  will-change: transform;
+}
+
+@keyframes hero-parallax {
+  from {
+    transform: translateY(-28px) scale(1.1);
+  }
+  to {
+    transform: translateY(28px) scale(1.1);
+  }
+}
+
+@keyframes float-y {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-7px);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .float-chip {
+    animation: float-y 5.5s ease-in-out infinite;
+  }
+
+  @supports (animation-timeline: view()) {
+    .hero-parallax {
+      animation: hero-parallax linear both;
+      animation-timeline: view();
+    }
+  }
+}
+
+/* ── Motion v2 (benchmark de concorrentes, 2026-10-20) ───────────────────────
+ * Evidência (REA): Carol, Mercadão, Diniz, Chilli Beans e Óticas do Bem usam
+ * carrossel em jQuery (Owl/Slick/Swiper) + lazysizes; nenhum usa GSAP, Framer
+ * Motion, Lenis ou Lottie. Aqui o movimento é CSS puro (sem dependência nova),
+ * só transform/opacity, e tudo dentro de prefers-reduced-motion: no-preference. */
+
+@keyframes word-rise {
+  from {
+    transform: translateY(105%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes hero-drift {
+  from {
+    transform: scale(1.04) translate3d(0, 0, 0);
+  }
+  to {
+    transform: scale(1.14) translate3d(-1.5%, 1%, 0);
+  }
+}
+
+@keyframes marquee-slide {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes frame-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes progress-grow {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .reveal-word {
+    animation: word-rise 0.8s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+    animation-delay: calc(var(--i, 0) * 90ms + 150ms);
+  }
+
+  .hero-drift {
+    animation: hero-drift 26s ease-in-out infinite alternate;
+    will-change: transform;
+  }
+
+  .marquee-track {
+    animation: marquee-slide 38s linear infinite;
+  }
+  .marquee:hover .marquee-track {
+    animation-play-state: paused;
+  }
+
+  .group:hover .frame-draw :is(path, rect, circle, ellipse, polygon) {
+    stroke-dasharray: 1;
+    animation: frame-draw 0.9s ease-out both;
+  }
+
+  @supports (animation-timeline: scroll()) {
+    .scroll-progress {
+      animation: progress-grow linear both;
+      animation-timeline: scroll(root);
+    }
+  }
+}
+
+/* Barra de progresso de leitura: só aparece onde há suporte a scroll-timeline */
+.scroll-progress {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 60;
+  height: 3px;
+  transform-origin: 0 50%;
+  transform: scaleX(0);
+  background: linear-gradient(90deg, var(--color-gold-500), var(--color-gold-300));
+  pointer-events: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .scroll-progress {
+    display: none;
   }
 }

@@ -21,14 +21,33 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-border/60 bg-white/85 backdrop-blur-md">
-      <div className="bg-navy-950 text-center text-xs font-medium text-navy-100">
-        <Link
-          href="/exame-de-vista"
-          className="block px-4 py-2 transition-colors hover:text-gold-300"
-        >
-          Exame de vista <span className="text-gold-300">gratuito</span> — agende
-          em menos de 1 minuto →
-        </Link>
+      <div className="bg-navy-950 text-xs font-medium text-navy-100">
+        <div className="mx-auto grid max-w-7xl grid-cols-1 items-center px-4 sm:px-6 md:grid-cols-[1fr_auto_1fr] lg:px-8">
+          <span aria-hidden className="hidden md:block" />
+          <Link
+            href="/exame-de-vista"
+            className="px-2 py-2 text-center outline-none transition-colors hover:text-gold-300 focus-visible:text-gold-300 focus-visible:underline"
+          >
+            Exame de vista <span className="text-gold-300">gratuito</span> —
+            agende em menos de 1 minuto →
+          </Link>
+          <div className="hidden items-center justify-end gap-5 md:flex">
+            <Link
+              href="/lojas"
+              className="outline-none transition-colors hover:text-gold-300 focus-visible:text-gold-300 focus-visible:underline"
+            >
+              Encontre uma loja
+            </Link>
+            <a
+              href={whatsappLink("Olá! Vim pelo site da Ótica Acesso.")}
+              target="_blank"
+              rel="noopener"
+              className="outline-none transition-colors hover:text-gold-300 focus-visible:text-gold-300 focus-visible:underline"
+            >
+              Fale conosco
+            </a>
+          </div>
+        </div>
       </div>
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
         <Wordmark />

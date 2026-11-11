@@ -1,27 +1,30 @@
 import Image from "next/image";
 import Link from "next/link";
-import {
-  ArrowRight,
-  Clock,
-  Eye,
-  MapPin,
-  MessageCircle,
-  Truck,
-} from "lucide-react";
+import { ArrowRight, Clock, Eye, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { BeforeAfter } from "@/components/site/before-after";
+import { BrandsStrip } from "@/components/site/brands-strip";
+import { StoresExplorer } from "@/components/site/stores-explorer";
 import { FadeIn } from "@/components/site/fade-in";
+import { FrameIcon, frameShapes } from "@/components/site/frame-icons";
+import { HeroVisual } from "@/components/site/hero-visual";
+import { Marquee } from "@/components/site/marquee";
+import { RevealWords } from "@/components/site/reveal-words";
 import { site, stores, whatsappLink } from "@/lib/site";
 
 export default function Home() {
   return (
     <>
       <Hero />
-      <TrustBar />
+      <Marquee />
       <Categories />
-      <StylesShowcase />
+      <BrandsStrip />
+      <Journey />
+      <BeforeAfter />
+      <ShapeSelector />
       <SocialProof />
-      <ExamCta />
       <Stores />
+      <ExamCta />
     </>
   );
 }
@@ -33,18 +36,37 @@ export default function Home() {
 function Hero() {
   return (
     <section className="relative overflow-hidden bg-navy-950 text-white">
+      {/* Seda azul-marinho com brilho dourado (imagem do cliente), em movimento lento */}
+      <div aria-hidden className="pointer-events-none absolute inset-0">
+        <Image
+          src="/images/background.png"
+          alt=""
+          fill
+          priority
+          sizes="100vw"
+          className="hero-drift object-cover opacity-70"
+        />
+      </div>
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_rgba(61,92,160,0.4),_transparent_55%),radial-gradient(ellipse_at_bottom_left,_rgba(201,148,34,0.14),_transparent_50%)]"
+        className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,rgba(10,22,51,0.92)_0%,rgba(10,22,51,0.55)_55%,rgba(10,22,51,0.15)_100%)]"
       />
       <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-4 py-20 sm:px-6 sm:py-24 lg:grid-cols-[1.1fr_1fr] lg:px-8 lg:py-28">
         <FadeIn>
           <p className="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-gold-300">
             Desde {site.foundedYear} · Varjota · Ipu · Reriutaba
           </p>
-          <h1 className="max-w-2xl font-heading text-4xl font-semibold leading-[1.1] sm:text-6xl">
-            Enxergar bem{" "}
-            <span className="text-gold-300">muda tudo.</span>
+          <h1 className="max-w-2xl font-display text-5xl font-bold leading-[1.1] sm:text-7xl">
+            <span className="block">
+              <RevealWords text="Enxergar bem" />
+            </span>
+            <span className="block">
+              <RevealWords
+                text="muda tudo."
+                start={2}
+                className="text-gold-300"
+              />
+            </span>
           </h1>
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-navy-100">
             Óculos de grau e de sol com atendimento de verdade — nas nossas
@@ -74,67 +96,9 @@ function Hero() {
         </FadeIn>
 
         <FadeIn delay={0.15} className="hidden lg:block">
-          <div className="relative overflow-hidden rounded-3xl">
-            {/* Foto lifestyle — A1: a maior alavanca visual do site */}
-            <Image
-              src="/images/hero-lifestyle.jpg"
-              alt="Mulher usando óculos de grau elegantes da Ótica Acesso"
-              width={640}
-              height={854}
-              priority
-              className="h-auto w-full rounded-3xl object-cover"
-            />
-            {/* Overlay gradiente sutil para profundidade */}
-            <div
-              aria-hidden
-              className="pointer-events-none absolute inset-0 rounded-3xl bg-gradient-to-t from-navy-950/40 via-transparent to-transparent"
-            />
-
-            {/* Chips glassmorphism flutuantes */}
-            <div className="absolute left-4 top-6 rounded-xl border border-white/15 bg-white/10 px-4 py-3 backdrop-blur-md sm:left-6 sm:top-8">
-              <p className="text-xs text-navy-100">Exame de vista</p>
-              <p className="font-heading text-lg font-semibold text-gold-300">
-                Gratuito
-              </p>
-            </div>
-            <div className="absolute bottom-6 right-4 rounded-xl border border-white/15 bg-white/10 px-4 py-3 backdrop-blur-md sm:right-6 sm:bottom-8">
-              <p className="text-xs text-navy-100">Óculos pronto em</p>
-              <p className="font-heading text-lg font-semibold text-gold-300">
-                até 24h
-              </p>
-            </div>
-          </div>
+          {/* Foto lifestyle com parallax + chips flutuantes (client component) */}
+          <HeroVisual />
         </FadeIn>
-      </div>
-    </section>
-  );
-}
-
-/* ─────────────────────────────────────────────────────────────────────────────
- * TRUST BAR
- * ────────────────────────────────────────────────────────────────────────── */
-
-const trustItems = [
-  { icon: MapPin, text: "3 lojas físicas no Ceará" },
-  { icon: Clock, text: "Óculos pronto em até 24h" },
-  { icon: Truck, text: "Envio para todo o Brasil" },
-  { icon: Eye, text: "Exame de vista gratuito" },
-];
-
-function TrustBar() {
-  return (
-    <section className="border-b border-border bg-secondary">
-      <div className="mx-auto grid max-w-7xl grid-cols-2 gap-6 px-4 py-8 sm:px-6 lg:grid-cols-4 lg:px-8">
-        {trustItems.map((item) => (
-          <div key={item.text} className="flex items-center gap-3">
-            <div className="flex size-10 shrink-0 items-center justify-center rounded-full bg-accent">
-              <item.icon className="size-5 text-gold-700" />
-            </div>
-            <span className="text-sm font-medium text-navy-900">
-              {item.text}
-            </span>
-          </div>
-        ))}
       </div>
     </section>
   );
@@ -149,8 +113,8 @@ const categories = [
     href: "/oculos-de-grau",
     title: "Óculos de grau",
     description: "Armações que valorizam o seu olhar, com a lente certa.",
-    image: "/images/category-grau.jpg",
-    imageAlt: "Armações de óculos de grau premium sobre fundo escuro",
+    image: "/images/category-grau-casal.jpg",
+    imageAlt: "Homem e mulher sorrindo, usando óculos de grau, conversando em um café",
   },
   {
     href: "/oculos-de-sol",
@@ -219,63 +183,185 @@ function Categories() {
 }
 
 /* ─────────────────────────────────────────────────────────────────────────────
- * STYLES SHOWCASE — vitrine de estilos (honesta)
+ * JOURNEY — "do exame à entrega"
  *
- * Estilos de armação universais (aviador, redondo, gatinho, esportivo) — não
- * são SKUs inventados. Sem preços fictícios: disponibilidade e valores reais
- * são consultados no WhatsApp. Vira catálogo de verdade na Fase 3.
+ * Nenhum dos concorrentes analisados (Diniz, Óticas do Bem, Chilli Beans,
+ * Carol, Mercadão) promove exame de vista com agendamento na home — é o
+ * diferencial. Só afirma o que o cliente confirmou: exame gratuito com
+ * agendamento, óculos pronto em até 24h (bio do Instagram).
  * ────────────────────────────────────────────────────────────────────────── */
 
-const styleTiles = [
-  { name: "Aviador", caption: "Clássico atemporal" },
-  { name: "Redondo", caption: "Ar retrô e moderno" },
-  { name: "Gatinho", caption: "Elegância marcante" },
-  { name: "Esportivo", caption: "Leveza e resistência" },
+const journeySteps = [
+  {
+    icon: Eye,
+    title: "Agende seu exame",
+    text: "Exame de vista gratuito, em Varjota, Ipu ou Reriutaba. Escolha loja e turno em menos de 1 minuto.",
+  },
+  {
+    icon: MessageCircle,
+    title: "Escolha com quem entende",
+    text: "Nossa equipe mostra as armações que combinam com você e indica a lente certa para o seu grau.",
+  },
+  {
+    icon: Clock,
+    title: "Retire em até 24h",
+    text: "Seu óculos pronto rapidinho. Se você mora longe, a gente envia para todo o Brasil.",
+  },
 ];
 
-function StylesShowcase() {
+function Journey() {
   return (
-    <section className="border-y border-border bg-secondary">
+    <section className="bg-secondary">
       <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
-        <div className="flex items-end justify-between gap-4">
-          <div>
-            <h2 className="font-heading text-3xl font-semibold text-navy-950 sm:text-4xl">
-              Modelos para todo estilo
-            </h2>
-            <p className="mt-3 max-w-2xl text-muted-foreground">
-              Do clássico ao moderno — encontre a armação com a sua cara.
-              Consulte modelos e valores no WhatsApp.
-            </p>
-          </div>
-          <Button asChild variant="outline" className="hidden sm:inline-flex">
-            <Link href="/oculos-de-grau">
-              Ver categorias
+        <FadeIn>
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gold-700">
+            Como funciona
+          </p>
+          <h2 className="mt-3 max-w-2xl font-heading text-3xl font-semibold text-navy-950 sm:text-4xl">
+            Do exame à entrega, sem complicação.
+          </h2>
+        </FadeIn>
+
+        <ol className="mt-12 grid gap-8 md:grid-cols-3">
+          {journeySteps.map((step, i) => (
+            <li key={step.title}>
+              <FadeIn staggerIndex={i}>
+                <div className="relative h-full rounded-2xl border border-border bg-card p-7">
+                  <span
+                    aria-hidden
+                    className="absolute -top-4 left-7 flex size-9 items-center justify-center rounded-full bg-navy-950 font-heading text-sm font-semibold text-gold-300 shadow-md"
+                  >
+                    {i + 1}
+                  </span>
+                  <step.icon className="mt-3 size-8 text-gold-600" aria-hidden />
+                  <h3 className="mt-5 font-heading text-xl font-semibold text-navy-950">
+                    {step.title}
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                    {step.text}
+                  </p>
+                </div>
+              </FadeIn>
+            </li>
+          ))}
+        </ol>
+
+        <FadeIn className="mt-10">
+          <Button
+            asChild
+            size="lg"
+            className="bg-gold-500 text-navy-950 shadow-lg shadow-gold-500/20 hover:bg-gold-400 active:scale-[0.97]"
+          >
+            <Link href="/exame-de-vista">
+              Agendar exame gratuito
               <ArrowRight className="size-4" />
             </Link>
           </Button>
-        </div>
+        </FadeIn>
+      </div>
+    </section>
+  );
+}
 
-        <div className="mt-10 flex flex-wrap gap-3">
-          {styleTiles.map((tile) => (
-            <a
-              key={tile.name}
-              href={whatsappLink(
-                `Olá! Vi o estilo "${tile.name}" no site e quero ver os modelos disponíveis.`,
-              )}
-              target="_blank"
-              rel="noopener"
-              className="group flex items-center gap-2 rounded-full border border-border bg-card py-3 pl-5 pr-4 outline-none transition-all hover:border-gold-300 hover:shadow-md focus-visible:ring-2 focus-visible:ring-gold-500 focus-visible:ring-offset-2 active:scale-[0.98]"
-            >
-              <span className="text-sm font-semibold text-navy-950">
-                {tile.name}
-              </span>
-              <span className="text-sm text-muted-foreground">
-                · {tile.caption}
-              </span>
-              <MessageCircle className="size-4 text-gold-700 transition-transform group-hover:scale-110" />
-            </a>
+/* ─────────────────────────────────────────────────────────────────────────────
+ * SHAPE SELECTOR — "Qual formato te representa?" (padrão do Mercadão dos
+ * Óculos, reinterpretado). Silhuetas SVG originais; sem preços nem modelos
+ * fictícios — disponibilidade e valores reais vêm pelo WhatsApp.
+ * ────────────────────────────────────────────────────────────────────────── */
+
+function ShapeSelector() {
+  return (
+    <section className="border-b border-border bg-white">
+      <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+        <FadeIn>
+          <div className="flex items-end justify-between gap-4">
+            <div>
+              <h2 className="font-heading text-3xl font-semibold text-navy-950 sm:text-4xl">
+                Qual formato combina com você?
+              </h2>
+              <p className="mt-3 max-w-2xl text-muted-foreground">
+                Toque no estilo que mais te representa e veja os modelos
+                disponíveis com a nossa equipe, direto no WhatsApp.
+              </p>
+            </div>
+            <Button asChild variant="outline" className="hidden sm:inline-flex">
+              <Link href="/oculos-de-grau">
+                Ver categorias
+                <ArrowRight className="size-4" />
+              </Link>
+            </Button>
+          </div>
+        </FadeIn>
+
+        <ul className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-4">
+          {frameShapes.map((item, i) => (
+            <li key={item.shape}>
+              <FadeIn staggerIndex={i} className="h-full">
+                <a
+                  href={whatsappLink(
+                    `Olá! Vi o formato "${item.label}" no site e quero ver os modelos disponíveis.`,
+                  )}
+                  target="_blank"
+                  rel="noopener"
+                  aria-label={`Ver armações no formato ${item.label} pelo WhatsApp`}
+                  className={
+                    item.photo
+                      ? "group flex h-full flex-col rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-gold-500 focus-visible:ring-offset-4 active:opacity-80"
+                      : "group flex h-full flex-col overflow-hidden rounded-2xl border border-border bg-card outline-none transition-all duration-300 hover:-translate-y-1 hover:border-gold-300 hover:shadow-lg focus-visible:ring-2 focus-visible:ring-gold-500 focus-visible:ring-offset-2 active:scale-[0.97]"
+                  }
+                >
+                  {item.photo ? (
+                    <>
+                      {/* Estilo catálogo: a foto (fundo branco) "assenta" via multiply
+                          sobre um fundo de estúdio (clarão no centro, azul-gelo da
+                          marca nas bordas); sem borda, sombra nem seta. */}
+                      <div className="relative aspect-[3/2] overflow-hidden rounded-sm bg-[radial-gradient(ellipse_75%_70%_at_50%_46%,#ffffff_0%,#eef3fa_45%,#d5e0f0_100%)]">
+                        <Image
+                          src={item.photo}
+                          alt=""
+                          fill
+                          sizes="(max-width: 1024px) 50vw, 25vw"
+                          className="object-cover mix-blend-multiply transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+                        />
+                      </div>
+                      <div className="flex flex-1 flex-col pt-3">
+                        <h3 className="font-heading text-lg font-medium text-navy-950">
+                          {item.label}
+                        </h3>
+                        <p className="mt-0.5 text-sm text-muted-foreground">
+                          {item.hint}
+                        </p>
+                        <div className="mt-auto pt-3">
+                          <span
+                            aria-hidden
+                            className="block h-px w-full bg-navy-950/15 transition-colors duration-300 group-hover:bg-gold-500"
+                          />
+                        </div>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <div className="flex items-center justify-center bg-gradient-to-br from-navy-900 to-navy-950 px-4 py-7 text-gold-400 transition-colors duration-300 group-hover:text-gold-300">
+                        <FrameIcon
+                          shape={item.shape}
+                          className="max-w-28 transition-transform duration-500 group-hover:scale-110"
+                        />
+                      </div>
+                      <div className="p-4">
+                        <h3 className="font-heading text-base font-semibold text-navy-950">
+                          {item.label}
+                        </h3>
+                        <p className="mt-0.5 text-xs text-muted-foreground">
+                          {item.hint}
+                        </p>
+                      </div>
+                    </>
+                  )}
+                </a>
+              </FadeIn>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
     </section>
   );
@@ -339,9 +425,9 @@ function ExamCta() {
             <Image
               src="/images/category-grau.jpg"
               alt=""
-              width={320}
-              height={180}
-              className="rounded-2xl object-cover"
+              width={1376}
+              height={768}
+              className="h-auto w-full rounded-2xl object-cover"
               aria-hidden
             />
           </div>
@@ -385,44 +471,7 @@ function Stores() {
           Três lojas no coração do Ceará — e atendimento pelo WhatsApp para
           todo o Brasil.
         </p>
-        <div className="mt-10 grid gap-6 md:grid-cols-3">
-          {stores.map((store) => (
-            <div key={store.slug} className="flex h-full flex-col rounded-2xl border border-border bg-card p-6 transition-all duration-300 hover:border-gold-300 hover:shadow-lg active:scale-[0.98]">
-              <p className="text-xs font-semibold uppercase tracking-wider text-gold-700">
-                {store.label}
-              </p>
-              <h3 className="mt-1 font-heading text-xl font-semibold text-navy-950">
-                {store.city} — {store.state}
-              </h3>
-              <p className="mt-1 flex-1 text-sm text-muted-foreground">
-                {store.address}
-              </p>
-              <div className="mt-5 flex flex-col gap-2">
-                <Button
-                  asChild
-                  className="w-full bg-navy-950 text-white hover:bg-navy-800"
-                >
-                  <Link href={`/lojas/${store.slug}`}>
-                    Conhecer a loja
-                    <ArrowRight className="size-4" />
-                  </Link>
-                </Button>
-                <Button asChild variant="outline" className="w-full">
-                  <a
-                    href={whatsappLink(
-                      `Olá! Vim pelo site e quero falar com a loja de ${store.city}.`,
-                    )}
-                    target="_blank"
-                    rel="noopener"
-                  >
-                    <MessageCircle className="size-4" />
-                    Falar com esta loja
-                  </a>
-                </Button>
-              </div>
-            </div>
-          ))}
-        </div>
+        <StoresExplorer stores={stores} />
       </div>
     </section>
   );

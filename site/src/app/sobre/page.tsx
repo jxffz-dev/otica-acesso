@@ -6,9 +6,8 @@ import { FadeIn } from "@/components/site/fade-in";
 import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Sobre a Ótica Acesso — desde 2014 cuidando da sua visão",
-  description:
-    "Conheça a Ótica Acesso: mais de uma década de saúde visual no Ceará, com lojas em Varjota, Ipu e Reriutaba e atendimento para todo o Brasil.",
+  title: `Sobre a Ótica Acesso — desde ${site.foundedYear} cuidando da sua visão`,
+  description: `Conheça a Ótica Acesso: desde ${site.foundedYear} cuidando da saúde visual no Ceará, com lojas em Varjota, Ipu e Reriutaba e atendimento para todo o Brasil.`,
 };
 
 const values = [

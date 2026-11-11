@@ -82,6 +82,12 @@ export default function PrivacidadePage() {
                   experiência no nosso site, compreendendo como os usuários
                   interagem com a plataforma.
                 </li>
+                <li>
+                  <strong>Mapas:</strong> Nas páginas com mapa de loja, o site
+                  carrega o Google Maps, serviço de terceiro que pode registrar
+                  dados de navegação (como endereço IP e cookies) conforme a
+                  política de privacidade do Google.
+                </li>
               </ul>
               <p className="mt-4">
                 <strong>Importante:</strong> Não realizamos processamento de

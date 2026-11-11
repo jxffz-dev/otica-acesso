@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Fraunces, Inter } from "next/font/google";
+import { Inter, Lora, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/next";
 import { SiteHeader } from "@/components/site/header";
@@ -12,10 +12,19 @@ const inter = Inter({
   subsets: ["latin"],
 });
 
-const fraunces = Fraunces({
-  variable: "--font-fraunces",
-  subsets: ["latin"],
-  axes: ["opsz"],
+// Títulos: Plus Jakarta Sans (sans moderna, elegante e simples). Rejeitadas pelo
+// cliente: Fraunces (serifa), Outfit (sans geométrica) e Dancing Script (script).
+const jakarta = Plus_Jakarta_Sans({
+  variable: "--font-jakarta",
+  subsets: ["latin", "latin-ext"],
+});
+
+// Título da capa ("Enxergar bem muda tudo."): Lora em negrito, escolhida pelo
+// cliente a partir de uma imagem de referência (a proporção do texto bate com a
+// Lora Bold: 6,38 contra 6,40 da imagem).
+const lora = Lora({
+  variable: "--font-lora",
+  subsets: ["latin", "latin-ext"],
 });
 
 export const metadata: Metadata = {
@@ -53,7 +62,7 @@ export default function RootLayout({
   return (
     <html
       lang="pt-BR"
-      className={`${inter.variable} ${fraunces.variable} h-full antialiased`}
+      className={`${inter.variable} ${jakarta.variable} ${lora.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
         <script
@@ -70,6 +79,7 @@ export default function RootLayout({
             }),
           }}
         />
+        <div aria-hidden className="scroll-progress" />
         <SiteHeader />
         <main className="flex-1">{children}</main>
         <SiteFooter />
