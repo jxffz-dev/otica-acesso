@@ -71,6 +71,9 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "Organization",
+              // @id: sem ele, cada página declara uma "organização nova" para o
+              // Google (auditoria squirrelscan, schema/entity-identity).
+              "@id": `${site.url}/#organization`,
               name: site.name,
               url: site.url,
               slogan: site.tagline,

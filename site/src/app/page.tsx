@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Clock, Eye, MessageCircle } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { BeforeAfter } from "@/components/site/before-after";
 import { BrandsStrip } from "@/components/site/brands-strip";
@@ -19,7 +19,6 @@ export default function Home() {
       <Marquee />
       <Categories />
       <BrandsStrip />
-      <Journey />
       <BeforeAfter />
       <ShapeSelector />
       <SocialProof />
@@ -39,7 +38,7 @@ function Hero() {
       {/* Seda azul-marinho com brilho dourado (imagem do cliente), em movimento lento */}
       <div aria-hidden className="pointer-events-none absolute inset-0">
         <Image
-          src="/images/background.png"
+          src="/images/background-seda.jpg"
           alt=""
           fill
           priority
@@ -183,87 +182,6 @@ function Categories() {
 }
 
 /* ─────────────────────────────────────────────────────────────────────────────
- * JOURNEY — "do exame à entrega"
- *
- * Nenhum dos concorrentes analisados (Diniz, Óticas do Bem, Chilli Beans,
- * Carol, Mercadão) promove exame de vista com agendamento na home — é o
- * diferencial. Só afirma o que o cliente confirmou: exame gratuito com
- * agendamento, óculos pronto em até 24h (bio do Instagram).
- * ────────────────────────────────────────────────────────────────────────── */
-
-const journeySteps = [
-  {
-    icon: Eye,
-    title: "Agende seu exame",
-    text: "Exame de vista gratuito, em Varjota, Ipu ou Reriutaba. Escolha loja e turno em menos de 1 minuto.",
-  },
-  {
-    icon: MessageCircle,
-    title: "Escolha com quem entende",
-    text: "Nossa equipe mostra as armações que combinam com você e indica a lente certa para o seu grau.",
-  },
-  {
-    icon: Clock,
-    title: "Retire em até 24h",
-    text: "Seu óculos pronto rapidinho. Se você mora longe, a gente envia para todo o Brasil.",
-  },
-];
-
-function Journey() {
-  return (
-    <section className="bg-secondary">
-      <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
-        <FadeIn>
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-gold-700">
-            Como funciona
-          </p>
-          <h2 className="mt-3 max-w-2xl font-heading text-3xl font-semibold text-navy-950 sm:text-4xl">
-            Do exame à entrega, sem complicação.
-          </h2>
-        </FadeIn>
-
-        <ol className="mt-12 grid gap-8 md:grid-cols-3">
-          {journeySteps.map((step, i) => (
-            <li key={step.title}>
-              <FadeIn staggerIndex={i}>
-                <div className="relative h-full rounded-2xl border border-border bg-card p-7">
-                  <span
-                    aria-hidden
-                    className="absolute -top-4 left-7 flex size-9 items-center justify-center rounded-full bg-navy-950 font-heading text-sm font-semibold text-gold-300 shadow-md"
-                  >
-                    {i + 1}
-                  </span>
-                  <step.icon className="mt-3 size-8 text-gold-600" aria-hidden />
-                  <h3 className="mt-5 font-heading text-xl font-semibold text-navy-950">
-                    {step.title}
-                  </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                    {step.text}
-                  </p>
-                </div>
-              </FadeIn>
-            </li>
-          ))}
-        </ol>
-
-        <FadeIn className="mt-10">
-          <Button
-            asChild
-            size="lg"
-            className="bg-gold-500 text-navy-950 shadow-lg shadow-gold-500/20 hover:bg-gold-400 active:scale-[0.97]"
-          >
-            <Link href="/exame-de-vista">
-              Agendar exame gratuito
-              <ArrowRight className="size-4" />
-            </Link>
-          </Button>
-        </FadeIn>
-      </div>
-    </section>
-  );
-}
-
-/* ─────────────────────────────────────────────────────────────────────────────
  * SHAPE SELECTOR — "Qual formato te representa?" (padrão do Mercadão dos
  * Óculos, reinterpretado). Silhuetas SVG originais; sem preços nem modelos
  * fictícios — disponibilidade e valores reais vêm pelo WhatsApp.
@@ -303,7 +221,6 @@ function ShapeSelector() {
                   )}
                   target="_blank"
                   rel="noopener"
-                  aria-label={`Ver armações no formato ${item.label} pelo WhatsApp`}
                   className={
                     item.photo
                       ? "group flex h-full flex-col rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-gold-500 focus-visible:ring-offset-4 active:opacity-80"
@@ -357,6 +274,13 @@ function ShapeSelector() {
                       </div>
                     </>
                   )}
+                  {/* Sem aria-label: o nome acessível é o próprio texto visível
+                      (formato + descrição) mais este complemento só para leitores
+                      de tela (WCAG 2.5.3, "rótulo no nome"). */}
+                  <span className="sr-only">
+                    {" "}
+                    — ver armações pelo WhatsApp (abre em nova aba)
+                  </span>
                 </a>
               </FadeIn>
             </li>

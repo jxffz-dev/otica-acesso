@@ -56,9 +56,9 @@ export function SiteFooter() {
         </div>
 
         <div>
-          <h3 className="mb-3 text-sm font-semibold uppercase tracking-wider text-gold-300">
+          <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-gold-300">
             Navegação
-          </h3>
+          </h2>
           <ul className="space-y-1 text-sm">
             {nav.map((item) => (
               <li key={item.href}>
@@ -70,13 +70,21 @@ export function SiteFooter() {
                 </Link>
               </li>
             ))}
+            <li>
+              <Link
+                href="/contato"
+                className="inline-block rounded-sm py-1.5 text-navy-200 outline-none transition-colors hover:text-white focus-visible:ring-2 focus-visible:ring-gold-400 focus-visible:ring-offset-2 focus-visible:ring-offset-navy-950"
+              >
+                Contato
+              </Link>
+            </li>
           </ul>
         </div>
 
         <div>
-          <h3 className="mb-3 text-sm font-semibold uppercase tracking-wider text-gold-300">
+          <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-gold-300">
             Nossas lojas
-          </h3>
+          </h2>
           <ul className="space-y-3 text-sm">
             {stores.map((store) => (
               <li key={store.slug} className="flex gap-2">
@@ -94,9 +102,9 @@ export function SiteFooter() {
         </div>
 
         <div>
-          <h3 className="mb-3 text-sm font-semibold uppercase tracking-wider text-gold-300">
+          <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-gold-300">
             Atendimento
-          </h3>
+          </h2>
           <ul className="space-y-2 text-sm text-navy-200">
             <li>
               <a

@@ -40,7 +40,7 @@ o texto abaixo fala de motion, é inferência a partir da marcação.
 | Padrão | Origem | Implementação |
 |---|---|---|
 | Seletor de formato com 7 silhuetas | Mercadão | `frame-icons.tsx` + seção `ShapeSelector`; ilustrações SVG originais, cada formato abre o WhatsApp com mensagem pronta |
-| "Do exame à entrega" em 3 passos | Diferencial (nenhum concorrente destaca exame) | Seção `Journey` na home |
+| "Do exame à entrega" em 3 passos | Diferencial (nenhum concorrente destaca exame) | ~~Seção `Journey` na home~~ **removida em 2026-11-12 (D-043)**: repetia a capa e a página /exame-de-vista |
 | Atalhos no topo ("Encontre uma loja", "Fale conosco") | Diniz, Carol | Barra de utilidade do header |
 | Parallax no hero + chips flutuantes | Carol (hero editorial) | CSS puro (`.hero-parallax`, `.float-chip`), respeita `prefers-reduced-motion` |
 

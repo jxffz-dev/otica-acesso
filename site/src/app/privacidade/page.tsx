@@ -7,7 +7,7 @@ import { site } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Política de Privacidade",
-  description: `Política de Privacidade e Proteção de Dados da ${site.name} (LGPD).`,
+  description: `Como a ${site.name} coleta, usa e protege os seus dados pessoais, em conformidade com a LGPD: seus direitos, cookies e contato.`,
 };
 
 // Data da última revisão do texto (não a data de render) — formatada dinamicamente
@@ -20,7 +20,8 @@ const formattedLastUpdated = LAST_UPDATED.toLocaleDateString("pt-BR", {
 
 export default function PrivacidadePage() {
   return (
-    <main className="flex min-h-screen flex-col bg-white">
+    // div, não main: o layout raiz já envolve a página em <main> (só pode haver um).
+    <div className="flex min-h-screen flex-col bg-white">
       {/* Hero */}
       <section className="bg-navy-950 py-16 text-white md:py-24">
         <div className="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
@@ -211,6 +212,6 @@ export default function PrivacidadePage() {
           </FadeIn>
         </div>
       </section>
-    </main>
+    </div>
   );
 }

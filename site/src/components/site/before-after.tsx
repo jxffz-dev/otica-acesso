@@ -1,7 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
-import { ArrowRight, MoveHorizontal } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { MoveHorizontal } from "lucide-react";
 import { Diff, DiffItem1, DiffItem2, DiffResizer } from "@/components/ui/diff";
 import { FadeIn } from "@/components/site/fade-in";
 
@@ -39,18 +37,6 @@ export function BeforeAfter() {
             <MoveHorizontal className="size-4" />
             Arraste para comparar
           </p>
-          <div className="mt-8">
-            <Button
-              asChild
-              size="lg"
-              className="bg-gold-500 text-navy-950 hover:bg-gold-400"
-            >
-              <Link href="/exame-de-vista">
-                Agendar meu exame gratuito
-                <ArrowRight className="size-4" />
-              </Link>
-            </Button>
-          </div>
         </FadeIn>
 
         <FadeIn>

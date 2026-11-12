@@ -10,7 +10,8 @@ import { ExamScheduler } from "@/components/exam/exam-scheduler";
 import { FadeIn } from "@/components/site/fade-in";
 
 export const metadata: Metadata = {
-  title: "Exame de vista gratuito — agende em Varjota, Ipu ou Reriutaba",
+  // Título curto (o sufixo " | Ótica Acesso" entra pelo layout): ideal até ~60 caracteres.
+  title: "Exame de vista gratuito no Ceará",
   description:
     "Agende seu exame de vista gratuito na Ótica Acesso. Atendimento em Varjota, Ipu e Reriutaba (CE). Agendamento rápido pelo WhatsApp.",
 };

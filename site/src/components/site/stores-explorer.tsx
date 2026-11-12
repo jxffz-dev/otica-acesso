@@ -59,7 +59,6 @@ export function StoresExplorer({ stores }: { stores: Store[] }) {
               <button
                 type="button"
                 aria-pressed={selected}
-                aria-label={`Ver ${store.city} no mapa`}
                 className="flex flex-1 cursor-pointer flex-col rounded-lg text-left outline-none focus-visible:ring-2 focus-visible:ring-gold-500 focus-visible:ring-offset-4"
               >
                 <span className="flex w-full items-center justify-between gap-2">
@@ -79,6 +78,9 @@ export function StoresExplorer({ stores }: { stores: Store[] }) {
                 <span className="mt-1 block flex-1 text-sm text-muted-foreground">
                   {store.address}
                 </span>
+                {/* Sem aria-label: o nome do botão é o texto visível + este
+                    complemento só para leitores de tela (WCAG 2.5.3). */}
+                <span className="sr-only"> — ver no mapa</span>
               </button>
               <div className="mt-5 flex flex-col gap-2">
                 <Button
@@ -86,7 +88,7 @@ export function StoresExplorer({ stores }: { stores: Store[] }) {
                   className="w-full bg-navy-950 text-white hover:bg-navy-800"
                 >
                   <Link href={`/lojas/${store.slug}`}>
-                    Conhecer a loja
+                    Conhecer a loja de {store.city}
                     <ArrowRight className="size-4" />
                   </Link>
                 </Button>
@@ -97,6 +99,7 @@ export function StoresExplorer({ stores }: { stores: Store[] }) {
                     )}
                     target="_blank"
                     rel="noopener"
+                    aria-label={`Falar com esta loja (${store.city}) pelo WhatsApp`}
                   >
                     <MessageCircle className="size-4" />
                     Falar com esta loja
@@ -120,6 +123,10 @@ export function StoresExplorer({ stores }: { stores: Store[] }) {
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
             allowFullScreen
+            // Isola o mapa: só os poderes de que o Google Maps precisa.
+            sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"
+            width={1200}
+            height={384}
             className="block h-72 w-full border-0 sm:h-96"
           />
         )}

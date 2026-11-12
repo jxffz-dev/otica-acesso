@@ -20,7 +20,7 @@ export async function generateMetadata({
   if (!store) return {};
   return {
     title: `Ótica em ${store.city} — CE | Exame de vista gratuito`,
-    description: `Ótica Acesso em ${store.city} (CE): exame de vista gratuito com agendamento, óculos de grau e sol, lentes e óculos pronto em até 24h. ${store.address}.`,
+    description: `Ótica Acesso em ${store.city} (CE): exame de vista gratuito com agendamento, óculos de grau e sol, lentes e óculos pronto em até 24h.`,
   };
 }
 
@@ -36,13 +36,17 @@ export default async function LojaPage({
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Optician",
+    "@id": `${site.url}/lojas/${store.slug}#optician`,
     name: `${site.name} — ${store.city}`,
+    // Liga a loja à organização declarada no layout (mesmo @id).
+    parentOrganization: { "@id": `${site.url}/#organization` },
     address: {
       "@type": "PostalAddress",
       addressLocality: store.city,
       addressRegion: "CE",
       addressCountry: "BR",
       streetAddress: store.address,
+      ...(store.postalCode ? { postalCode: store.postalCode } : {}),
     },
     url: `${site.url}/lojas/${store.slug}`,
     telephone: `+${site.whatsappNumber}`,

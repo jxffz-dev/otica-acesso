@@ -47,12 +47,17 @@ export default function LojasPage() {
                   className="w-full bg-navy-950 text-white hover:bg-navy-800"
                 >
                   <Link href={`/lojas/${store.slug}`}>
-                    Conhecer a loja
+                    Conhecer a loja de {store.city}
                     <ArrowRight className="size-4" />
                   </Link>
                 </Button>
                 <Button asChild variant="outline" className="w-full">
-                  <a href={store.mapsUrl} target="_blank" rel="noopener">
+                  <a
+                    href={store.mapsUrl}
+                    target="_blank"
+                    rel="noopener"
+                    aria-label={`Como chegar à loja de ${store.city}`}
+                  >
                     Como chegar
                   </a>
                 </Button>
